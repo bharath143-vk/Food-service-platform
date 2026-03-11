@@ -1,3 +1,18 @@
+- create a html file,and app.js file-
+
+type npm init and answer the questions
+this will create package.json file
+- our whole code needs to be bundled together
+we are using parcel here 
+// npm install -D parcel
+here -D(dev dependency)is we are intalling in development mode
+
+//npm install react
+//npm install react-dom
+//npm install react-router-dom
+
+
+
 1) To ignite our app run command
    //npx parcel index.html 
    npx is to execute package
@@ -52,3 +67,398 @@ which returns jsx
 
 9) whatever code is inside {} jsx won't blindly run it
 it sanitize the data ,if anything malicious found it won't execute
+
+
+10) props(properties) are just arguments to the function
+when u want to pass data dynamically to a component u pass it as a properties
+
+//used in frontend system design interview
+//CONFLICT DRIVEN UI
+ - our website is driven by data 
+ - our website is driven by carousel
+ ** controlling the UI using data
+
+ 11) when u r looping through anything make sure to give a key
+// if u don't give key while inserting some new restaurent it will render evertything all restaurent
+make sure to provide unique key
+
+** it's not recommened to use index as a key
+
+12) after creating components folder 
+inside that folder some people save components file .js,.jsx,.tsx it doesn't matter what u use
+evertything wil work fine
+13)while importing also
+  // import ./components/Header.js
+   //import ./components/Header
+   both will work
+
+
+14) Never keep hardcoded data like resList in components file
+
+15) There are two types of exports 
+   a) default export  //export default Body
+   b) named export  // export const Body
+   if u do named export while importing elements u need to place element name inside {}
+   // import {component} from path 
+
+   16) REACT HOOKS
+   (normal js utility functions)
+   //two most imp HOOKS
+   - useState() => gives super powerful state variable in react
+   - useEffect()
+
+* state variable maintains the state of the app
+*** whenever state variable updates react re renders the component
+
+*** REACT IS VERY GOOD AT DOM OPERATIONS***
+
+
+17) in REACT16 a new algorithm came to update DOM
+Reconcilation algorithm(ReactFiber)
+ it will acutally creates virtual DOM
+
+ ** in Difference algorithm
+ it acutally finds the difference between previous and 
+ updated, if it finds difference like (here we have applied filter)
+ it acutally updates dom
+
+
+ ** WHY REACT IS FAST**
+ Because it is very good at dom manipulations
+
+ 18) Two approaches for api calls
+ 
+ i)  app Loads => api call=> render UI
+ ii) app loads =>render ui=>api call =>re render ui
+
+ ** 2nd approach is better it will give better ux
+ 19) useEffect is a hook 
+    the arguments passed are callback function & dependency array
+    useEffect(()=>{},[])
+    first the components will render after that this callback function will be called
+
+
+   20) cors related issue came that's why created server.js
+   //npm install express node-fetch cors
+
+   //npm install node-fetch
+     ** first run this server.mjs //node server.mjs
+     ** then run npm start
+
+
+   21) shimmer.js is used for displaying fake cards
+    before loading api rather than keeping loading symbol in the ui it's better user experience
+    to keep dummy cards
+
+   22) why we use state variables(useState) instead of normal
+   local varibles 
+   if we want to render ui (for ex after clicking button login should changed to logout) 
+   with local variables it will not render ui that's why
+   we use state varibles 
+   ** state variables not only render that particular element
+   it will render whole react component
+   at that time it will check the difference between older code and newly updated code and renders the whole component
+   but updates only that particular code
+
+   *** whenever state variable updates, react triggers a Reconcilation cycle(re renders the component) ***
+
+  //IMP
+  23)//If no dependency array=> useEffect is called on every render
+    // if dependency array is empty=>useEffect is called on intial render(just once)
+    //if u pass any state variable in dependency array =>useEffect is called everytime when that variable is updated
+    ex: ** useEffect(()=>{
+      console.log('use effect is called')
+     },[btnNameReact])
+
+    24) ** Hooks are always present in inside the component
+    not outside **
+    ** don't create state variables inside if-else conditions,functions,loops**
+    it doesn't make any sense
+    **try to keep state variables at the top inside component
+
+  25)// npm i react-router-dom
+  for installing react-router
+
+  26) 
+  createBrowserRouter used to create a list of routes
+  RouterProvider actually creates routing configuration
+
+  27)This outlet will be filled with children according to the path
+  28) Never use anchor tag for routing to other pages Because it will reload the whole page which we don't want
+    ** use link component from react-router-dom it will not reload page
+    => THAT'S WHY REACT APPLICATIONS  ARE KNOWN AS SINGLE PAGE APPLICATIONS
+
+  29) TWO TYPES OF routing
+   I)SERVER SIDE ROUTING
+  You make a network call and the page(about.html) coming from server
+  II) CLIENT SIDE ROUTING
+    here we are not making network call we r just swithching between pages which are already fetched
+
+  30) for dynamic params use hook useParams
+  31) we use Link to navigate behind the scenes Link is using anchor tag
+
+
+  //8 let's get classy video
+
+  32)class based components are older way of creating
+  components (but now in industries functional components are use
+  it is asked in interviews better to know)
+   
+   33) what is class based components? it is normal javascript class which returns jsx
+      Inside class a render method will be there it returns piece of jsx which is shown in the ui
+
+  34) In the funtional components we get props from function definition
+  but in class based components we receive props from the constructor
+  ** Inside the constructor super is used
+
+  35) the best way to create state variables inside the class based components is inside
+  the constructor because whenever class component is loaded an instance of class is created
+  and constructor is called 
+
+  36) in functional compoenents while creating many state variables we will write one by one
+    but in class based compoenents all state variables are written inside this.state() in constructor
+  ** NEVER UPDATE STATE VARIBALES DIRECTLY
+
+  37) To update state variables inside the class based component use this.setState()
+  whatever values passed into the setState() only those will get updated
+
+  38)
+  //both are correct
+  import React from "react";
+  import { Component } from "react";
+
+  class UserClass extends Component
+  class UserClass extends React.Component
+
+*** LIFE CYCLE***
+  ** RENDER PHASE  
+        - MOUNTING
+             |
+        - CONSTRUCTOR
+             |
+        -  RENDER
+   * after render phase it will updates dom
+   ** COMMIT PHASE
+        -COMPONENTDIDMOUNT
+39) when class is loaded first it will create constructor and after it goes to render
+life cycle is
+  1)constructor
+  2)render
+  3)componentDidMount
+    
+    **when one child is there 
+   example output:
+      Parent constructor
+      About.js:15 parent render
+      UserClass.js:18 child constructor
+      UserClass.js:25 child render
+      UserClass.js:22 child mounted
+      About.js:12 Parent mounted
+
+    **if two child are there
+    Parent constructor
+    parent render
+    First childchild constructor
+    First childchild render
+    second childchild constructor
+    second childchild render
+    <<< Here Dom updation -single batch>>
+    First childchild mounted
+    second childchild mounted
+    Parent mounted
+
+    //after completing child1 render it is not mounting child1 it proceeds to child 2 after child2
+    it is mounting (here react is ) ,((updating dom every time is expensive that's why))
+    commit phase takes time so it batches all child renders and after it mounts all childs
+
+ ** at the end rather than updating dom for each child each time it will render the batches
+ into single batch and updats dom(why like this because updating dom is so expensive)
+ here dom performance is optimized
+ 
+40)componentDidMount is used to make api calls
+    WHY?
+    first constructor is called
+    second render is called
+    after  this it wil update dom 
+    componentDidMount called (that's why here we make api calls)
+
+41) After setState in componentDidMount it will updates the state after it that it 
+renders again
+
+LifeCYCLE
+/***  ----MOUNTING--
+  * constructor(dummy data)
+  * render(dummy data)
+  *  -<HTML updates with dummy data/>
+  * componentDidMount
+  *       <API CALL>
+  *       <this.setState> -> State variable is updated
+    ---UPDATE---
+  *  - render(API DATA)
+  *  <HTML (with API DATA)
+  *    componentDidUpdate(it is a method called after updataion)
+
+  42) Mounting means showing in the UI
+  unmounting means disabling from UI
+   compoenentWillUnmount method is called when we are leaving that page (this method disables ui)
+
+  ** WHY WE MUST WRITE compoenentWillUnmount***
+  43) for example u write a setInterval function in componentDidMount after some time it will execute ,even though
+  u move to other component page the setInterval function will keep on executing in the background this leads to
+  decrease in the performance  so u need to clear that interval
+  
+  that's why we have to write compoenentWillUnmount
+
+   if the interval is called inside the useEffect function it will also do same like above
+   to unmount it we need return this  below code in useEffect
+      // return()=>{
+          clearInterval(interval name)
+      }
+
+  ****9)***
+  44) our whole code is bundled into one js file (by parcel) but sometimes the size of file will
+  be huge which takes lot of time to load so that's why some components are lazy loaded
+
+  only get those components on demand
+  lazy(()=> import())
+
+  but we will get error here because when body renders it will try to render this component
+  but the code is not there that's why error came 
+   to resolve this we need to place this component inside suspense 
+  
+  ** the use of lazy loading is it will load files only on demand
+  and these files code not present in the big js file,the lazy components have different js files
+ *** check inspect->network->js
+ // chunking
+ //dynamic bundling
+ //lazy loading
+ //code splitting
+ //on demand loading
+ //dynamic import
+
+ 11)DATA IS THE NEW OIL
+
+ //HIGHER ORDER components
+ 45)HIGHER ORDER components takes components inside and returns the components
+     it's just a normal javascript function 
+    - it takes existing compoenent and enhances it gives back the component 
+
+  46)there are controllable and uncontrollable components
+  to control some of the uncontrollables u have to LIFT THE STATE UPDATE
+  (here when u open one menu remaining all should be closed)
+  47)it's not a good way to pass props from one parent to deep nested child 
+  so that's why we use createContext (global object) can be accessed using 
+  a react hook useContext
+
+  48) suppose u have user info and u want to change context dynamically 
+  then wrap the app inside usercontext.provider 
+  u can wrap whole app or specific parts of our app
+  ***//here usercontext is a created file by us
+
+  ***49) 
+  we can place another usercontext.provider inside usercontext.provider we can nest them
+  according to how it nested the value changes
+
+
+  // 12) Let's build our store
+  50) Redux is not a mandatory thing to use
+  51) Redux and react are different libraries
+  ** 52) assume redux store is a big object kept in a 
+  central global place  and any component inside app can access it
+
+  53)) install @redux/toolkit and react-redux
+   //things to build
+    - Build our store
+    - connect our store to app
+    - Slice(cartSlice)
+    - dispatch(action)
+    - Selector 
+
+  54)) configure store() will give us store for 
+  our react aplication
+  55) create slices using createSlice 
+  56) to read from cart
+           - need to subscribe to our store using a hook useSelector
+
+  57) for reading => useSelector
+       for writing => useDispatch
+
+  clicked handleAddItem() => dispatched action(addItem) =>called function in reducers => read using selector => updates cart
+
+  //****
+   - whenever u using selector make sure u are subscribed to the right portion of the store
+   -  in main app store use (reducer) beacuse it is one big reducer for whole
+   - in slices use (reducers) because there are many actions
+
+   //** redux uses immer in the  background to create a new state and returns it
+
+
+   // 13 Let's test our app
+
+58) there are mainly three types of testing (developer testing)
+    i) Unit test 
+    ii)Integration test
+    iii)end to end testing e2e
+
+  i)UNIT test
+    - testing small part of our app
+  ii) Integration testing
+   - components are grouped and tested
+
+//SETTING UP TESTING IN OUR APPLICATION
+   -Install react testing library
+   - installed jest
+   - installed babel dependecies
+   - configure babel
+   - configure parcel ,(config file to diable default babel transpilation)
+   - npm jest --init   //check screenshot for answers
+   - install jsdom testing library(react testing library=>setup=>jest 28=>copy jsdom (npm install --save-dev jest-environment-jsdom))
+   - install @babel/preset-react  -to make JSX work in test cases
+   - include  @babel/preset-react in babel configuration file
+      add this babel in configuration  ['@babel/preset-react',{runtime:'automatic'}]
+  - install @testing-library/jest-dom
+
+//after installing all 
+ run //npm run test
+ //if no errors found
+ then
+ //npx jest --init
+ //check screenshot for answers
+
+
+
+
+59) React testing library is built on top of dom testing library
+  it uses jest behind the scenes 
+   //to install testing library
+   in web go to react testing library =>open the website=>copy link
+   //install jest also
+   open the jest website 
+   ->install
+   ->install babel  dependecies 
+   ->configure
+
+  *** 
+   parcel already uses babel now we installed babel dependecies for jest
+   parcel has some configuration and we are again adding babel configuration
+   this will create conflicts for parcel
+
+   //u want u r current configuration to work and disable previous babel
+    // changes need to do
+     go to parcel => search for javascript=>select babel =>find usage with other tools =>copy that code in u r app
+
+
+  60) whenerver u are doing unit testing u need to render that component on to the Dom
+  61) describe is a set of test cases for some specific component
+ *** 62) u can write (it) in place of (test)
+
+ 63)in package.json write
+    watch-test:jest --watch
+    and do npm run watch -test//it will run everytime when u saved code
+
+  **64) while doing test cases if rendering component changes 
+  state variables  then
+            - wrap render(<component/>) with act
+
+
+    65)MOCKS are the data we copied from api call for respective fetch

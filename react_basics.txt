@@ -110,7 +110,7 @@ const fn2=() => {
  const HeadingComponent3=() => (
     
         <div id="container">
-            <Title />
+            <Title/>
             <Title></Title> 
             {Title()}
             {/* above three things doing same thing */}
